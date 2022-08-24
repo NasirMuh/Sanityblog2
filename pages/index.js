@@ -3,8 +3,10 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { createClient } from "next-sanity"
 
-export default function Home({authors}) {
+export default function Home({authors,category}) {
   console.log(authors)
+  console.log(category)
+
 
   const client = createClient({
     projectId: "iuh30fxh",
@@ -24,6 +26,9 @@ export default function Home({authors}) {
 
      <h1>Nasir</h1>
      <h1>Author :{authors[0].name}</h1>
+     <h1>category :{category[0].title}</h1>
+
+
 
     </div>
   )
@@ -37,9 +42,11 @@ export async function getServerSideProps() {
     useCdn: true
   });
   const authors = await client.fetch(`*[_type == "author"]`);
+  const category = await client.fetch(`*[_type == "category"]`);
+
   return {
     props: {
-      authors
+      authors,category
     }
   };
 }
