@@ -27,6 +27,7 @@ export default function Home({authors,category}) {
      <h1>Nasir</h1>
      <h1>Author :{authors[0].name}</h1>
      <h1>category :{category[0].title}</h1>
+     
 
 
 
