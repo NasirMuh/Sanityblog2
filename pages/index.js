@@ -2,11 +2,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { createClient } from "next-sanity"
+import imageUrlBuilder from '@sanity/image-url'
+
 
 export default function Home({authors,category}) {
-  console.log(authors)
-  console.log(category)
-
 
   const client = createClient({
     projectId: "iuh30fxh",
@@ -14,6 +13,8 @@ export default function Home({authors,category}) {
     apiVersion: '2021-10-21',
     useCdn: true
   });
+  const builder = imageUrlBuilder(client)
+  console.log(authors)
   return (
     <div className={styles.container}>
       <Head>
@@ -23,8 +24,10 @@ export default function Home({authors,category}) {
       </Head>
 
      <h1>Nasir</h1>
-     <h1>Author :{authors[0].name}</h1>
+     {/* <h1>Author :{authors[0]._id}</h1> */}
      <h1>category :{category[0].title}</h1>
+     <Image src={builder.image(authors[1].image).url() || "Nasir.jpg"}  width={125} height={125} alt="Picture" className='rounded-full'/>
+
     </div>
   )
 }
